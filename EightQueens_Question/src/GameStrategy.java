@@ -3,15 +3,16 @@ public class GameStrategy {
 	private int numQueens = 0;
 
 	private int getColumn(int cellId) {
-		// WRITE YOUR LOGIC HERE...................................		
+		// WRITE YOUR LOGIC HERE...................................
+		
 
-		return 0;	// just for the heck of it
+		return cellId%8;
 	}
 	
 	private int getRow(int cellId) {
 		// WRITE YOUR LOGIC HERE....................................
 		
-		return 0;	// just for the heck of it
+		return cellId/8;
 	}
 
 	public boolean isValidPosition(int cellId) {
@@ -29,6 +30,48 @@ public class GameStrategy {
 			WRITE YOUR LOGIC HERE...............................
 
 		*/
+		if(placedQueens[row][col]==true)
+			isValid=false;
+		else {
+			boolean flag=false;
+			//check rows and columns
+			
+			for(int i=0;i<8;i++) {
+				
+				flag=flag || placedQueens[i][col];
+				flag=flag || placedQueens[row][i];
+				
+			}
+			//System.out.println("row col flag"+flag);
+			//upper left diagonal
+			for(int i=row,j=col;i>=0 && j>=0;i--,j--)
+				flag=flag || placedQueens[i][j];
+			
+			//lower right diagonal
+			for(int i=row,j=col;j<8 && i<8;i++,j++)
+				flag=flag || placedQueens[i][j];
+			//System.out.println("LR" +flag);
+			//lower left diagonal
+			for(int i=row,j=col;j>=0 && i<8;i++,j--) {
+				flag=flag || placedQueens[i][j];
+			}
+			//System.out.println("LL" +flag);
+			//upper right diagonal
+			for(int i=row,j=col;i>=0 && j<8;i--,j++) {
+				flag=flag || placedQueens[i][j];
+			}
+			//System.out.println("UR" +flag);
+			if(flag==true) {
+				isValid=false;
+			}
+			else {
+				placedQueens[row][col]=true;
+				numQueens++;
+			}
+			
+			
+				
+		}
 		return isValid;
 	}
 }
